@@ -18,3 +18,10 @@ jobs:
 
       - name: Check uv
         run: uv --version
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Find Python
+        run: uv python find
+
