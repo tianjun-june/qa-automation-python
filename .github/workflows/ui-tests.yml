@@ -25,3 +25,8 @@ jobs:
       - name: Find Python
         run: uv python find
 
+      - name: Install dependencies
+        run: uv sync --locked --dev
+
+      - name: Check pytest
+        run: uv run pytest --version
