@@ -36,3 +36,14 @@ jobs:
 
       - name: Run smoke tests
         run: uv run pytest tests/ui -m smoke -v --env=qa
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: yi-test-artifacts
+          path: |
+            test-results/
+            logs/
+          if-no-files-found: ignore
+          retention-days: 7
