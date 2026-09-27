@@ -11,6 +11,7 @@ def test_successful_login(login_page, inventory_page):
 
 
     inventory_page.verify_loaded()
+    expect(inventory_page.cart_badge).to_have_text("1")
 
 @pytest.mark.regression
 def test_invalid_login(login_page):
@@ -22,7 +23,7 @@ def test_invalid_login(login_page):
 
     expect(login_page.error_message).to_be_visible()
     expect(login_page.error_message).to_contain_text(
-        "Username and password 1do not match"
+        "Username and password do not match"
     )
 
 
