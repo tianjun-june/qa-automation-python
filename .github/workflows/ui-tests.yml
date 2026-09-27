@@ -33,3 +33,6 @@ jobs:
 
       - name: Install Playwright Chromium
         run: uv run playwright install --with-deps chromium
+
+      - name: Run smoke tests
+        run: uv run pytest tests/ui -m smoke -v --env=qa
