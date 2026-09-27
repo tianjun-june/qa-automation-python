@@ -13,5 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Show files
-        run: ls -la
+      - name: Install uv
+        uses: astral-sh/setup-uv@9
+
+      - name: Check uv
+        run: uv --version
