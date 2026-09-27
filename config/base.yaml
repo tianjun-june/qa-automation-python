@@ -1,0 +1,7 @@
+browser:
+  timeout: 6000
+  headless: false
+
+test:
+  screenshot_on_failure: true
+  retries: 0

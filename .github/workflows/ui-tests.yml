@@ -1,0 +1,17 @@
+name: UI Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ui-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Show files
+        run: ls -la
