@@ -30,3 +30,6 @@ jobs:
 
       - name: Check pytest
         run: uv run pytest --version
+
+      - name: Install Playwright Chromium
+        run: uv run playwright install --with-deps chromium
