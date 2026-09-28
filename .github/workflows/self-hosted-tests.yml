@@ -1,0 +1,38 @@
+name: Self-hosted UI Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ui-tests:
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@10.2.0
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync --locked --dev
+
+      - name: Install Playwright Chromium
+        run: uv run playwright install --with-deps chromium
+
+      - name: Run smoke tests
+        run: uv run pytest tests/ui -m smoke -v --env=qa
+
+      - name: Upload test artifacts
+        if: alwaws()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: self-hosted-ui-test-artifacts
+          path: |
+            test-results/
+            logs/
+          if-no-files=found: ignore
+          retention-days: 7
