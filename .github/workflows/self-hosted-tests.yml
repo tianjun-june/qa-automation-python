@@ -11,6 +11,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
 
+      - name: Clean previous test artifacts
+        run:  rm -rf test-results logs
+
       - name: Install uv
         uses: astral-sh/setup-uv@v10.2.0
 
