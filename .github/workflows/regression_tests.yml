@@ -42,7 +42,7 @@ jobs:
         with:
           name: regression-test-artifacts
           path: |
-            rest-results/
+            test-results/
             logs/
             if-no-files-found: ignore
             retention-days: 7
