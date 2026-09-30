@@ -23,7 +23,7 @@ jobs:
         run: uv sync --locked --dev
 
       - name: Install Playwright Chromium
-        run: un run playwright install --with-deps chromium
+        run: uv run playwright install --with-deps chromium
 
       - name: Run regression tests
         env:
