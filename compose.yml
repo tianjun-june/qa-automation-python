@@ -1,0 +1,28 @@
+services:
+  runner:
+    image: qa-github-runner
+    container_name: qa-github-runner-compose
+
+    working_dir: /home/runner/actions-runner
+
+    restart: unless-stopped
+
+    volumes:
+      - runner-data:/home/runner/actions-runner
+      - uv-cache:/home/runner/.cache/uv
+      - playwright-cache:/home/runner/.cache/ms-playwright
+
+    command: >
+      bash -lc '
+      if [ -f .runner ]; then
+        exec ./run.sh;
+      else
+        echo "Runner is not configured yet.";
+        echo "Run config.sh once, then restart this container.";
+        exec sleep infinity;
+      fi
+      '
+volumes:
+  runner-data:
+  uv-cache:
+  playwright-cache:

@@ -1,5 +1,5 @@
 base_url: "https://www.saucedemo.com"
 
-credentials:
-  username: "standard_user"
-  password: "secret_sauce"
+#credentials:
+#  username: "standard_user"
+#  password: "secret_sauce"

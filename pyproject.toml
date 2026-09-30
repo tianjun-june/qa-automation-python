@@ -18,6 +18,7 @@ dev = [
 
 [tool.pytest.ini_options]
 addopts = [
+    "-v",
     "--screenshot=only-on-failure",
     "--tracing=retain-on-failure",
     "--output=test-results",
