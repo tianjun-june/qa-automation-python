@@ -35,10 +35,7 @@ jobs:
         run: uv run playwright install --with-deps chromium
 
       - name: Run smoke tests
-        run: |
-          mkdir -p test-results
-          uv run pytest/ui -m smoke -v --env=qa \
-          --junitxml=test-results/junit.xml
+        run: uv run pytest tests/ui -m smoke -v --env=qa
 
       - name: Upload test artifacts
         if: always()

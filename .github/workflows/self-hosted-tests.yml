@@ -16,6 +16,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: "0.12.20"
 
       - name: Install Python
         run: uv python install
@@ -27,7 +29,10 @@ jobs:
         run: uv run playwright install --with-deps chromium
 
       - name: Run smoke tests
-        run: uv run pytest tests/ui -m smoke -v --env=qa
+        run: |
+          mkdir -p test-results
+          uv run pytest/ui -m smoke -v --env=qa \
+          --junitxml=test-results/junit.xml
 
       - name: Upload test artifacts
         if: always()
