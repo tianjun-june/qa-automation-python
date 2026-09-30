@@ -47,8 +47,6 @@ def load_config(environment: str) -> AppConfig:
     username = os.getenv("TEST_USERNAME")
     password = os.getenv("TEST_PASSWORD")
 
-    logging.info(f"Get username and password from environment variables:{username, password}")
-
     if not username or not password:
         raise RuntimeError(
             "TEST_USERNAME and TEST_PASSWORD variables are required."

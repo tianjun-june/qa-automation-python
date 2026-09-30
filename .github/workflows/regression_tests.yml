@@ -1,0 +1,48 @@
+name: UI Regression Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  regresion-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setupp-uv@10.2.0
+        with:
+          version: "0.12.20"
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync --locked --dev
+
+      - name: Install Playwright Chromium
+        run: un run playwright install --with-deps chromium
+
+      - name: Run regression tests
+        env:
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: |
+          mkdir -p test-results
+          uv run pytest tests/ui -m regression --env=qa \
+            --junitxml=test-results/junit.xml \
+            --html=test-results/report.html \
+            --self-contained-html
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: regression-test-artifacts
+          path: |
+            rest-results/
+            logs/
+            if-no-files-found: ignore
+            retention-days: 7
