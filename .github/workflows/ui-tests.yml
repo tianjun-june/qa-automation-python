@@ -35,6 +35,9 @@ jobs:
         run: uv run playwright install --with-deps chromium
 
       - name: Run smoke tests
+        env:
+          TEST_USERNAME: ${{secret.TEST_USERNAME}}
+          TEST_PASSWORD: ${{secret.TEST_USERNAME}}
         run: |
           mkdir -p test-results
           uv run pytest tests/ui -m smoke -v --env=qa \
