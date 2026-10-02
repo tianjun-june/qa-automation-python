@@ -1,26 +1,20 @@
 import pytest
 from playwright.sync_api import expect
+from test_data.suacedemo import Products
 
 @pytest.mark.smoke
-def test_add_product_to_cart(login_page, inventory_page):
-    login_page.open()
-    login_page.login("standard_user", "secret_sauce")
+def test_add_product_to_cart(logged_in_inventory_page):
 
-    inventory_page.verify_loaded()
-
-    inventory_page.add_product_to_cart("Sauce Labs Backpack")
+    logged_in_inventory_page.add_product_to_cart(Products.BACKPACK)
 
     expect(
-        inventory_page.cart_badge
+        logged_in_inventory_page.cart_badge
     ).to_have_text("1")
 
-def test_inventory_has_products(login_page, inventory_page):
-    login_page.open()
-    login_page.login("standard_user", "secret_sauce")
+def test_inventory_has_products(logged_in_inventory_page):
 
-    inventory_page.verify_loaded()
 
-    product_names = inventory_page.get_product_names()
+    product_names = logged_in_inventory_page.get_product_names()
     assert len(product_names) > 0
 
     print(product_names)

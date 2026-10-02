@@ -21,12 +21,6 @@ jobs:
         with:
           version: "0.12.20"
 
-      - name: Check uv
-        run: uv --version
-
-      - name: Install Python
-        run: uv python install
-
       - name: Find Python
         run: uv python find
 
@@ -45,7 +39,7 @@ jobs:
           TEST_PASSWORD: ${{secrets.TEST_PASSWORD}}
         run: |
           mkdir -p test-results
-          uv run pytest tests/ui -m smoke -v --env=qa \
+          uv run pytest tests/ui -m smoke -v --env=qa -n 2 \
           --junitxml=test-results/junit.xml \
           --html=test-results/report.html \
           --self-contained-html

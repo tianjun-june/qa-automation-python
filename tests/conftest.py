@@ -9,9 +9,9 @@ from utils.config_loader import load_config
 from utils.config_loader import AppConfig
 from utils.logging_config import configure_logging
 
-
-def pytest_configure(config):
-    configure_logging()
+@pytest.fixture(scope="session", autouse=True)
+def set_configure(worker_id):
+    configure_logging(worker_id)
 
 test_logger = logging.getLogger("test")
 

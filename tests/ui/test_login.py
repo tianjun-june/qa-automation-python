@@ -1,6 +1,8 @@
 import pytest
 from playwright.sync_api import expect
 
+from test_data.suacedemo import INVALID_LOGIN_CASES
+
 
 @pytest.mark.smoke
 @pytest.mark.regression
@@ -14,17 +16,20 @@ def test_successful_login(login_page, inventory_page):
     # expect(inventory_page.cart_badge).to_have_text("1")
 
 @pytest.mark.regression
-def test_invalid_login(login_page):
+@pytest.mark.parametrize(
+    "case",
+    INVALID_LOGIN_CASES,
+    ids=lambda case: case.id,
+)
+def test_invalid_login(login_page, case):
 
     login_page.open()
-    login_page.login("invalid_user", "wrong_password")
+    login_page.login(case.username, case.password)
 
 
 
     expect(login_page.error_message).to_be_visible()
-    expect(login_page.error_message).to_contain_text(
-        "Username and password do not match"
-    )
+    assert login_page.error_message.text_content() == case.expected_message
 
 
 def test_empty_username(login_page):

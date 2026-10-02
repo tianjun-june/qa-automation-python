@@ -16,9 +16,6 @@ jobs:
         with:
           version: "0.12.20"
 
-      - name: Install Python
-        run: uv python install
-
       - name: Install dependencies
         run: uv sync --locked --dev
 
@@ -31,7 +28,7 @@ jobs:
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: |
           mkdir -p test-results
-          uv run pytest tests/ui -m regression --env=qa \
+          uv run pytest tests/ui -m regression --env=qa -n 2 \
             --junitxml=test-results/junit.xml \
             --html=test-results/report.html \
             --self-contained-html
