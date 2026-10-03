@@ -25,4 +25,4 @@ class LoginPage:
         self.login_button.click()
 
     def verify_error_message(self, expected_message: str) -> None:
-        expect(self.error_message).to_be(expected_message)
+        expect(self.error_message).to_have_text(expected_message)

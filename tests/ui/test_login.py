@@ -26,7 +26,7 @@ def test_invalid_login(login_page, case):
     login_page.open()
     login_page.login(case.username, case.password)
 
-    login_page.verify_loaded(case.expected_message)
+    login_page.verify_error_message(case.expected_message)
 
 def test_inventory_has_products(login_page, inventory_page):
     login_page.open()
