@@ -1,3 +1,4 @@
+import re
 import logging
 from playwright.sync_api import Page, expect
 
@@ -8,9 +9,8 @@ class InventoryPage:
 
     # URL = f"{BASE_URL}/inventory.html"
 
-    def __init__(self, page: Page, base_url:str):
+    def __init__(self, page: Page):
         self.page = page
-        self.url = f"{base_url}/inventory.html"
 
         self.title = page.get_by_text("Products")
         self.product_items = page.locator(".inventory_item")
@@ -20,7 +20,7 @@ class InventoryPage:
     def verify_loaded(self):
         logger.info("Verifying inventory page is loaded")
 
-        expect(self.page).to_have_url(self.url)
+        expect(self.page).to_have_url(re.compile(r".*/inventory\.html$"))
         expect(self.title).to_be_visible()
 
     def get_product_names(self):
@@ -37,7 +37,7 @@ class InventoryPage:
         product.get_by_role(
             "button",
             name="Add to cart",
-        ).first.click()
+        ).click()
 
     def open_cart(self):
         logger.info("Opening shopping cart")

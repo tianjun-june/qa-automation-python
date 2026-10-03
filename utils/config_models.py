@@ -8,7 +8,6 @@ class BrowserConfig(BaseModel):
     )
 
     timeout: int
-    headless: bool
 
 
 class TestConfig(BaseModel):

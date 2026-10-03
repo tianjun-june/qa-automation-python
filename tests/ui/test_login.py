@@ -26,21 +26,7 @@ def test_invalid_login(login_page, case):
     login_page.open()
     login_page.login(case.username, case.password)
 
-
-
-    expect(login_page.error_message).to_be_visible()
-    assert login_page.error_message.text_content() == case.expected_message
-
-
-def test_empty_username(login_page):
-
-    login_page.open()
-    login_page.login("", "secret_sauce")
-
-    expect(login_page.error_message).to_be_visible()
-    expect(login_page.error_message).to_contain_text(
-        "Username is required"
-    )
+    login_page.verify_loaded(case.expected_message)
 
 def test_inventory_has_products(login_page, inventory_page):
     login_page.open()

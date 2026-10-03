@@ -7,6 +7,14 @@ jobs:
   regresion-tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        browser:
+          - chromium
+          - firefox
+          - webkit
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
@@ -19,8 +27,8 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked --dev
 
-      - name: Install Playwright Chromium
-        run: uv run playwright install --with-deps chromium
+      - name: Install Playwright browser
+        run: uv run playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run regression tests
         env:
@@ -29,6 +37,7 @@ jobs:
         run: |
           mkdir -p test-results
           uv run pytest tests/ui -m regression --env=qa -n 2 \
+            --browser ${{ matrix.browser }} \
             --junitxml=test-results/junit.xml \
             --html=test-results/report.html \
             --self-contained-html
@@ -37,7 +46,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: regression-test-artifacts
+          name: regression-test-artifacts-${{ matrix.browser }}
           path: |
             test-results/
             logs/
