@@ -18,3 +18,31 @@ def test_inventory_has_products(logged_in_inventory_page):
     assert len(product_names) > 0
 
     print(product_names)
+
+@pytest.mark.regression
+def test_inventory_loaded(authenticated_inventory_page):
+    authenticated_inventory_page.open()
+    authenticated_inventory_page.verify_loaded()
+
+@pytest.mark.regression
+def test_inventory_loaded2(authenticated_inventory_page):
+    authenticated_inventory_page.open()
+    authenticated_inventory_page.verify_loaded()
+
+def test_open_x_saucelab(authenticated_inventory_page):
+
+    authenticated_inventory_page.open()
+    authenticated_inventory_page.verify_loaded()
+
+    # test open new tab
+    # with authenticated_inventory_page.page.expect_popup() as popup_info:
+    #     authenticated_inventory_page.open_x_saucelab()
+    #
+    # x_saucelab_page = popup_info.value
+    # expect(x_saucelab_page.get_by_role("link", name="2008")).to_be_visible()
+    # x_saucelab_page.close()
+    # x_saucelab_page.opener
+
+    authenticated_inventory_page.page.bring_to_front()
+
+

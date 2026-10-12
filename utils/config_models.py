@@ -35,6 +35,8 @@ class AppConfig(BaseModel):
     )
 
     base_url: str
+    api_base_url: str
+
     browser: BrowserConfig
     test: TestConfig
     credentials: CredentialsConfig

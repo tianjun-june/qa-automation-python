@@ -28,6 +28,7 @@ addopts = [
 markers = [
     "smoke: criticl tests for basic system health",
     "regression: broader regression test suite",
+    "api: API and HTTP tests"
 ]
 
 log_cli = true

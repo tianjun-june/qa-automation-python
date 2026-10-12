@@ -16,6 +16,12 @@ class InventoryPage:
         self.product_items = page.locator(".inventory_item")
         self.cart_badge = page.locator(".shopping_cart_badge")
         self.cart_link = page.locator(".shopping_cart_link")
+        self.menu_button = page.get_by_role("button", name="Open Menu")
+        self.menu_about_button = page.get_by_role("link", name="About")
+        self.x_icon = page.get_by_role("link",name="x")
+
+    def open(self):
+        self.page.goto("/inventory.html")
 
     def verify_loaded(self):
         logger.info("Verifying inventory page is loaded")
@@ -42,3 +48,15 @@ class InventoryPage:
     def open_cart(self):
         logger.info("Opening shopping cart")
         self.cart_link.click()
+
+    def open_menu(self):
+        logger.info("Opening menu")
+        self.menu_button.click()
+
+    def open_about(self):
+        logger.info("Opening new tab...")
+        self.menu_about_button.click()
+
+    def open_x_saucelab(self):
+        logger.info("Opening X_saucelab")
+        self.x_icon.click()
